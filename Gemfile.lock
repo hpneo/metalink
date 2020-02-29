@@ -1,0 +1,64 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
+    faraday (1.0.0)
+      multipart-post (>= 1.2, < 3)
+    ffi (1.12.2)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
+    hanami-api (0.1.0)
+      hanami-router (~> 2.0.alpha)
+    hanami-router (2.0.0.alpha2)
+      mustermann (~> 1.0)
+      mustermann-contrib (~> 1.0)
+      rack (~> 2.0)
+    hansi (0.2.0)
+    http (4.3.0)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.2.0)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
+    mini_portile2 (2.4.0)
+    multipart-post (2.1.1)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-contrib (1.1.1)
+      hansi (~> 0.2.0)
+      mustermann (= 1.1.1)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
+    open_graph_reader (0.7.0)
+      faraday (>= 0.9.0)
+      nokogiri (~> 1.6)
+    public_suffix (4.0.3)
+    rack (2.2.2)
+    rake (13.0.1)
+    ruby2_keywords (0.0.2)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hanami-api
+  http
+  open_graph_reader (~> 0.7.0)
+  rack
+
+RUBY VERSION
+   ruby 2.7.0p0
+
+BUNDLED WITH
+   2.1.4
