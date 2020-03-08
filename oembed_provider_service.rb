@@ -24,7 +24,7 @@ class OEmbedProviderService
     end
   end
 
-  def get(url)
+  def get(url, params = {})
     if provider = find_provider(url)
       endpoint = provider["endpoints"].find do |endpoint|
         return nil if endpoint.nil?
@@ -35,7 +35,7 @@ class OEmbedProviderService
       end
 
       if endpoint
-        JSON.parse(HTTP.follow.get(endpoint["url"], params: { url: url }).body)
+        JSON.parse(HTTP.follow.get(endpoint["url"], params: params.merge({ url: url })).body)
       end
     end
   end

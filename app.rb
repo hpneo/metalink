@@ -19,8 +19,8 @@ class App < Hanami::API
   end
 
   get "/" do
-    if url = params[:url]
-      result = ScrapperService.call(url)
+    if url = params.delete(:url)
+      result = ScrapperService.call(url, params)
 
       json(result)
     else
