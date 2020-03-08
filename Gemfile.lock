@@ -45,6 +45,8 @@ GEM
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rake (13.0.1)
     ruby2_keywords (0.0.2)
     unf (0.1.4)
@@ -60,6 +62,7 @@ DEPENDENCIES
   open_graph_reader (~> 0.7.0)
   puma
   rack
+  rack-cors
 
 RUBY VERSION
    ruby 2.7.0p0
