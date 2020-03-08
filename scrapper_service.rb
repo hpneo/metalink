@@ -19,7 +19,7 @@ class ScrapperService
         raw: resource
       }
     elsif resource = OpenGraphReader.fetch(url)
-      {
+      result = {
         url: resource.og.url,
         favicon: FaviconGrabberService.call(resource.og.url),
         title: resource.og.title,
@@ -28,6 +28,12 @@ class ScrapperService
         type: resource.og.type,
         raw: resource.og.properties
       }
+
+      if url.hostname == "gist.github.com"
+        result[:html] = "<script src=\"#{url}.js\"></script>"
+      end
+
+      result
     end
   end
 end
