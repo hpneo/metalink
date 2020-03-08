@@ -1,3 +1,4 @@
+require "uri"
 require "open_graph_reader"
 
 require_relative "./favicon_grabber_service"
@@ -5,6 +6,8 @@ require_relative "./oembed_provider_service"
 
 class ScrapperService
   def self.call(url)
+    url = URI.parse(URI.escape(url))
+
     if resource = OEmbedProviderService.new.get(url)
       {
         url: resource["provider_url"],
