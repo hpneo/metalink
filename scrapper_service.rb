@@ -32,7 +32,7 @@ class ScrapperService
       if url.hostname == "gist.github.com"
         embed_info = JSON.parse(HTTP.get("#{url}.json").body)
 
-        result[:html] = "<link rel=\"stylesheet\" href=\"#{embed_info[:stylesheet]}\">#{embed_info[:div]}"
+        result[:html] = "<link rel=\"stylesheet\" href=\"#{embed_info['stylesheet']}\">#{embed_info['div']}"
       end
 
       result
