@@ -8,7 +8,7 @@ class ScrapperService
   def self.call(url)
     url = URI.parse(URI.escape(url))
 
-    if resource = OEmbedProviderService.new.get(url)
+    if resource = OEmbedProviderService.new.get(url.to_s)
       {
         url: resource["provider_url"],
         favicon: FaviconGrabberService.call(resource["provider_url"]),

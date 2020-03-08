@@ -19,7 +19,7 @@ class OEmbedProviderService
           end
         end
       rescue => exception
-        puts provider
+        puts exception
       end
     end
   end
