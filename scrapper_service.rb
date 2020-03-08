@@ -30,7 +30,7 @@ class ScrapperService
       }
 
       if url.hostname == "gist.github.com"
-        result[:html] = "<script src=\"#{url}.js\"></script>"
+        result[:html] = "<script src=\"#{url}.js\" type=\"text/javascript\"></script>"
       end
 
       result
