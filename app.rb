@@ -23,8 +23,10 @@ class App < Hanami::API
   if ENV["MEMCACHEDCLOUD_SERVERS"].present?
     dalli = Dalli::Client.new(
       ENV["MEMCACHEDCLOUD_SERVERS"].split(','),
-      username: ENV["MEMCACHEDCLOUD_USERNAME"],
-      password: ENV["MEMCACHEDCLOUD_PASSWORD"]
+      {
+        username: ENV["MEMCACHEDCLOUD_USERNAME"],
+        password: ENV["MEMCACHEDCLOUD_PASSWORD"]
+      }
     )
 
     use Rack::Cache,
