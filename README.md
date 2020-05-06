@@ -4,16 +4,16 @@ Metalink extracts information from URLs and provide uniformed and structured dat
 
 ## Usage
 
-Call `https://metalink.herokuapp.com` with an `url` parameter. Metalink will try to fetch its OpenGraph metatags and fallback to oEmbed if can't find OpenGraph data.
+Call `https://metalink.dev` with an `url` parameter. Metalink will try to fetch its OpenGraph metatags and fallback to oEmbed if can't find OpenGraph data.
 
 ```http
-GET https://metalink.herokuapp.com/?url={URL_TO_INSPECT}
+GET https://metalink.dev/?url={URL_TO_INSPECT}
 ```
 
 For example:
 
 ```http
-GET https://metalink.herokuapp.com/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666
+GET https://metalink.dev/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666
 ```
 
 Will respond with:
@@ -47,7 +47,7 @@ Will respond with:
 Some URLs, such as Twitter, accepts extra parameters, for example:
 
 ```http
-GET https://metalink.herokuapp.com/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666&hide_thread=true
+GET https://metalink.dev/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666&hide_thread=true
 ```
 
 In this case, `hide_thread` is an extra parameter that will be passed to Twitter.
