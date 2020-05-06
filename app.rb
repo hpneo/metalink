@@ -22,7 +22,7 @@ class App < Hanami::API
     if url = params.delete(:url)
       result = ScrapperService.call(url, params)
 
-      headers["Cache-Control"] = "private, max-age=2628000"
+      headers["Cache-Control"] = "max-age=2628000, public"
 
       json(result)
     else
