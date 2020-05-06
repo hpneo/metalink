@@ -20,7 +20,7 @@ class App < Hanami::API
     end
   end
 
-  if ENV["MEMCACHEDCLOUD_SERVERS"].present?
+  unless ENV["MEMCACHEDCLOUD_SERVERS"]&.empty?
     dalli = Dalli::Client.new(
       ENV["MEMCACHEDCLOUD_SERVERS"].split(','),
       {
