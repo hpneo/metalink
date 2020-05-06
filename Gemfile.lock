@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    dalli (2.7.10)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     faraday (1.0.0)
@@ -45,6 +46,8 @@ GEM
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
+    rack-cache (1.11.1)
+      rack (>= 0.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rake (13.0.1)
@@ -57,11 +60,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dalli
   hanami-api
   http
   open_graph_reader (~> 0.7.0)
   puma
   rack
+  rack-cache
   rack-cors
 
 RUBY VERSION

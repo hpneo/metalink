@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "dalli"
 require "rack/cors"
+require "rack-cache"
 require "bundler/setup"
 require "hanami/api"
 
@@ -18,11 +20,24 @@ class App < Hanami::API
     end
   end
 
+  if ENV["MEMCACHEDCLOUD_SERVERS"].present?
+    dalli = Dalli::Client.new(
+      ENV["MEMCACHEDCLOUD_SERVERS"].split(','),
+      username: ENV["MEMCACHEDCLOUD_USERNAME"],
+      password: ENV["MEMCACHEDCLOUD_PASSWORD"]
+    )
+
+    use Rack::Cache,
+        verbose: true,
+        metastore: dalli,
+        entitystore: dalli
+  end
+
   get "/" do
     if url = params.delete(:url)
       result = ScrapperService.call(url, params)
 
-      headers["Cache-Control"] = "max-age=2628000, public"
+      headers["Cache-Control"] = "public, max-age=2628000"
 
       json(result)
     else
