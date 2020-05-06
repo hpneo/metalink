@@ -51,7 +51,8 @@ class OEmbedProviderService
     if full
       domain = Regexp.escape(domain).gsub("\\*", "(.*?)").gsub("(.*?)\\.", "([^\\.]+\\.)?")
       path = Regexp.escape(path).gsub("\\*", "(.*?)")
-      provider_url = Regexp.new("^#{Regexp.escape(scheme)}://#{domain}#{path}")
+
+      Regexp.new("^#{Regexp.escape(scheme)}://#{domain}#{path}")
     end
   end
 end
