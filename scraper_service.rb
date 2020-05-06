@@ -1,17 +1,15 @@
-require "uri"
-require "open_graph_reader"
-
 require_relative "./favicon_grabber_service"
-require_relative "./oembed_provider_service"
-require_relative './json_ld_parser_service'
+require_relative "./oembed_scraper_service"
+require_relative "./open_graph_scraper_service"
+require_relative './json_ld_scraper_service'
 
-class ScrapperService
+class ScraperService
   def self.call(url, params = {})
     url = URI.parse(URI.escape(url))
 
-    json_ld = JSON::LD::ParserService.call(url) || {}
-    oembed = OEmbedProviderService.new.get(url.to_s, params) || {}
-    open_graph = OpenGraphReader.fetch(url)&.og
+    json_ld = JSON::LD::ScraperService.call(url) || {}
+    oembed = OEmbedScraperService.call(url.to_s, params) || {}
+    open_graph = OpenGraphScraperService.call(url)&.og
 
     response = {
       url: nil,

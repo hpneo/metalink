@@ -6,7 +6,7 @@ require 'rack-cache'
 require 'bundler/setup'
 require 'hanami/api'
 
-require_relative './scrapper_service'
+require_relative './scraper_service'
 
 class App < Hanami::API
   use Rack::Cors do
@@ -39,7 +39,7 @@ class App < Hanami::API
     # rubocop:todo Lint/AssignmentInCondition
     if url = params.delete(:url)
       # rubocop:enable Lint/AssignmentInCondition
-      result = ScrapperService.call(url, params)
+      result = ScraperService.call(url, params)
 
       headers['Cache-Control'] = 'public, max-age=604800'
 

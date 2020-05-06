@@ -4,7 +4,7 @@ require "json"
 require "nokogiri"
 
 module JSON::LD
-  class ParserService
+  class ScraperService
     HEADERS = {
       user_agent: Agents.random_user_agent(:desktop),
       accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
