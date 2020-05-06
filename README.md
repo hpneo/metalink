@@ -16,7 +16,7 @@ For example:
 GET https://metalink.herokuapp.com/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666
 ```
 
-Will responds with:
+Will respond with:
 
 ```json
 {
@@ -44,7 +44,7 @@ Will responds with:
 
 ### Extra parameters
 
-Some URLs, such as Twitter, accepts extra paramters, for example:
+Some URLs, such as Twitter, accepts extra parameters, for example:
 
 ```http
 GET https://metalink.herokuapp.com/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%2F1125041041063665666&hide_thread=true
