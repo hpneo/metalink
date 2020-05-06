@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ast (2.4.0)
     dalli (2.7.10)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -29,6 +30,7 @@ GEM
     http-form_data (2.2.0)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
+    jaro_winkler (1.5.4)
     mini_portile2 (2.4.0)
     multipart-post (2.1.1)
     mustermann (1.1.1)
@@ -42,6 +44,9 @@ GEM
     open_graph_reader (0.7.0)
       faraday (>= 0.9.0)
       nokogiri (~> 1.6)
+    parallel (1.19.1)
+    parser (2.7.1.2)
+      ast (~> 2.4.0)
     public_suffix (4.0.3)
     puma (4.3.3)
       nio4r (~> 2.0)
@@ -50,11 +55,33 @@ GEM
       rack (>= 0.4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rainbow (3.0.0)
     rake (13.0.1)
+    rubocop (0.76.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.6)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.7)
+    rubocop-airbnb (3.0.2)
+      rubocop (~> 0.76.0)
+      rubocop-performance (~> 1.5.0)
+      rubocop-rails (~> 2.3.2)
+      rubocop-rspec (~> 1.30.0)
+    rubocop-performance (1.5.2)
+      rubocop (>= 0.71.0)
+    rubocop-rails (2.3.2)
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    rubocop-rspec (1.30.1)
+      rubocop (>= 0.60.0)
+    ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
+    unicode-display_width (1.6.1)
 
 PLATFORMS
   ruby
@@ -68,6 +95,8 @@ DEPENDENCIES
   rack
   rack-cache
   rack-cors
+  rubocop
+  rubocop-airbnb
 
 RUBY VERSION
    ruby 2.7.0p0

@@ -2,7 +2,7 @@ require "http"
 require "json"
 
 class OEmbedProviderService
-  PROVIDERS_URL = "https://oembed.com/providers.json"
+  PROVIDERS_URL = "https://oembed.com/providers.json".freeze
 
   def self.providers
     @providers ||= JSON.parse(HTTP.get(PROVIDERS_URL).body)
@@ -10,23 +10,25 @@ class OEmbedProviderService
 
   def find_provider(url)
     self.class.providers.find do |provider|
-      begin
-        provider["endpoints"].find do |endpoint|
-          endpoint["schemes"]&.find do |provider_scheme|
-            if provider_url = provider_scheme_to_regexp(provider_scheme)
-              provider_url =~ url
-            end
+      provider["endpoints"].find do |endpoint|
+        endpoint["schemes"]&.find do |provider_scheme|
+          # rubocop:todo Lint/AssignmentInCondition
+          if provider_url = provider_scheme_to_regexp(provider_scheme)
+            # rubocop:enable Lint/AssignmentInCondition
+            provider_url =~ url
           end
         end
-      rescue => exception
-        puts exception
       end
+    rescue => exception
+      puts exception
     end
   end
 
   def get(url, params = {})
-    if provider = find_provider(url)
+    if provider = find_provider(url) # rubocop:todo Lint/AssignmentInCondition
+      # rubocop:todo Lint/ShadowingOuterLocalVariable
       endpoint = provider["endpoints"].find do |endpoint|
+        # rubocop:enable Lint/ShadowingOuterLocalVariable
         return nil if endpoint.nil?
 
         endpoint["schemes"]&.find do |provider_scheme|
