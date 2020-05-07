@@ -8,9 +8,9 @@ class FaviconGrabberService
       HTTP.use(:auto_inflate).headers(JSON::LD::ParserService::HEADERS).follow.get(url).body.to_s
     )
 
-    document.css('link[rel="icon"]').first.attributes["href"].value
+    document.css('link[rel="icon"]').first.attributes["href"].value || fallback(url)
   rescue
-    nil
+    fallback(url)
   end
 
   def self.fallback(url)
