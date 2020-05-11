@@ -5,7 +5,11 @@ require_relative './json_ld_scraper_service'
 
 class ScraperService
   def self.call(url, params = {})
-    url = URI.parse(URI.escape(url))
+    begin
+      url = URI.parse(url)
+    rescue
+      url = URI.parse(URI.escape(url))
+    end
 
     json_ld = JSON::LD::ScraperService.call(url) || {}
     oembed = OEmbedScraperService.call(url.to_s, params) || {}
