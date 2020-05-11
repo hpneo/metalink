@@ -2,6 +2,7 @@
 
 require 'dalli'
 require 'rack/cors'
+require 'rack/deflater'
 require 'rack-cache'
 require 'bundler/setup'
 require 'hanami/api'
@@ -19,6 +20,8 @@ class App < Hanami::API
                max_age: 0
     end
   end
+
+  use Rack::Deflater
 
   # rubocop:todo Lint/SafeNavigationWithEmpty
   unless ENV['MEMCACHEDCLOUD_SERVERS']&.empty?
