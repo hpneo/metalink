@@ -9,6 +9,7 @@ gem "dalli"
 gem "hanami-api"
 gem "http"
 gem 'agents'
+gem 'faraday_middleware'
 gem "open_graph_reader", "~> 0.7.0"
 gem 'nokogiri'
 gem 'rubocop'

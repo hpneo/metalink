@@ -27,7 +27,7 @@ class ScraperService
     response[:title] = json_ld.fetch("headline", nil) || oembed.fetch("title", nil) || open_graph&.title
     response[:description] = json_ld.fetch("description", nil) || open_graph&.description
     response[:image] = json_ld.fetch("image", []).first || oembed.fetch("thumbnail_url", nil) || open_graph&.children&.fetch("image", [])&.first&.content
-    response[:html] = oembed.fetch("html", nil)
+    response[:html] = oembed.fetch("html", nil) || custom_embed(response[:url])
     response[:type] = json_ld.fetch("@type", nil) || oembed.fetch("type", nil) || open_graph&.type
     response[:raw] = {
       json_ld: json_ld,
@@ -43,5 +43,14 @@ class ScraperService
     end
 
     response
+  end
+
+  def self.custom_embed(url)
+    url = URI.parse(URI.escape(url))
+
+    if url.host === "docs.google.com"
+      # return "<iframe src=\"#{url}\" frameborder=\"0\" width=\"960\" height=\"569\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>"
+      return "<iframe src=\"#{url}\" frameborder=\"0\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>"
+    end
   end
 end

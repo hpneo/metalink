@@ -10,6 +10,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (1.0.0)
+      faraday (~> 1.0)
     ffi (1.12.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -90,6 +92,7 @@ PLATFORMS
 DEPENDENCIES
   agents
   dalli
+  faraday_middleware
   hanami-api
   http
   nokogiri

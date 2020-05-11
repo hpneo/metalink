@@ -5,10 +5,10 @@ require "nokogiri"
 class FaviconGrabberService
   def self.call(url)
     document = Nokogiri::HTML(
-      HTTP.use(:auto_inflate).headers(JSON::LD::ParserService::HEADERS).follow.get(url).body.to_s
+      HTTP.use(:auto_inflate).headers(JSON::LD::ScraperService::HEADERS).follow.get(url).body.to_s
     )
 
-    document.css('link[rel="icon"]').first.attributes["href"].value || fallback(url)
+    (document.css('link[rel="icon"]').first || document.css('link[rel="shortcut icon"]').first).attributes["href"].value || fallback(url)
   rescue
     fallback(url)
   end
