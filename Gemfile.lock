@@ -51,7 +51,7 @@ GEM
     parser (2.7.1.2)
       ast (~> 2.4.0)
     public_suffix (4.0.3)
-    puma (4.3.3)
+    puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.2)
     rack-cache (1.11.1)
@@ -97,7 +97,7 @@ DEPENDENCIES
   http
   nokogiri
   open_graph_reader (~> 0.7.0)
-  puma
+  puma (>= 4.3.5)
   rack
   rack-cache
   rack-cors
