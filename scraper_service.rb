@@ -29,6 +29,7 @@ class ScraperService
     response[:url] = json_ld.fetch("mainEntityOfPage", nil) || oembed.fetch("provider_url", nil) || open_graph&.url || url
     response[:favicon] = FaviconGrabberService.call(response[:url])
     response[:title] = json_ld.fetch("headline", nil) || oembed.fetch("title", nil) || open_graph&.title
+    response[:site_name] = json_ld.dig("publisher", "name") || oembed.fetch("provider_name", nil) || open_graph&.site_name
     response[:description] = json_ld.fetch("description", nil) || open_graph&.description
     response[:image] = json_ld.fetch("image", []).first || oembed.fetch("thumbnail_url", nil) || open_graph&.children&.fetch("image", [])&.first&.content
     response[:html] = oembed.fetch("html", nil) || custom_embed(response[:url])
