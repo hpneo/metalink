@@ -23,8 +23,7 @@ class App < Hanami::API
 
   use Rack::Deflater
 
-  # rubocop:todo Lint/SafeNavigationWithEmpty
-  unless ENV['MEMCACHEDCLOUD_SERVERS']&.empty?
+  if ENV['MEMCACHEDCLOUD_SERVERS']
     dalli = Dalli::Client.new(
       ENV['MEMCACHEDCLOUD_SERVERS'].split(','),
       username: ENV['MEMCACHEDCLOUD_USERNAME'],
@@ -35,16 +34,23 @@ class App < Hanami::API
         verbose: true,
         metastore: dalli,
         entitystore: dalli
+  else
+    use Rack::Cache,
+        verbose: true
   end
-  # rubocop:enable Lint/SafeNavigationWithEmpty
 
   get '/' do
-    # rubocop:todo Lint/AssignmentInCondition
-    if url = params.delete(:url)
-      # rubocop:enable Lint/AssignmentInCondition
+    url = params.delete(:url)
+    expire = params.delete(:expire)
+
+    if url
       result = ScraperService.call(url, params)
 
-      headers['Cache-Control'] = 'public, max-age=604800'
+      if expire == "true"
+        headers['Age'] = '604800'
+      else
+        headers['Cache-Control'] = 'public, max-age=604800'
+      end
 
       json(result)
     else

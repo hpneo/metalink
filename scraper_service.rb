@@ -50,7 +50,7 @@ class ScraperService
   end
 
   def self.custom_embed(url)
-    url = URI.parse(URI.escape(url))
+    url = url.is_a?(String) ? URI.parse(URI.escape(url)) : url
 
     if url.host === "docs.google.com"
       # return "<iframe src=\"#{url}\" frameborder=\"0\" width=\"960\" height=\"569\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>"
