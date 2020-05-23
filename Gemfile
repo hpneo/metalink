@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 ruby "2.7.0"
 
-gem "puma"
+gem "puma", ">= 4.3.5"
 gem "rack"
 gem "rack-cors"
 gem "rack-cache"
