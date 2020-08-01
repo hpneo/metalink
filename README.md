@@ -51,3 +51,11 @@ GET https://metalink.dev/?url=https%3A%2F%2Ftwitter.com%2Fryanflorence%2Fstatus%
 ```
 
 In this case, `hide_thread` is an extra parameter that will be passed to Twitter.
+
+### Taking screenshots
+
+To get a screenshot from a URL, call `https://metalink.dev/screenshot` with an `url` parameter. Metalink will try to fetch the URL in a headless Chrome instance with a 1080x720 window size.
+
+```http
+GET https://metalink.dev/screenshot?url={URL_TO_INSPECT}
+```

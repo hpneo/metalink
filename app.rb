@@ -8,6 +8,7 @@ require 'bundler/setup'
 require 'hanami/api'
 
 require_relative './scraper_service'
+require_relative './screenshot_service'
 
 class App < Hanami::API
   use Rack::Cors do
@@ -55,6 +56,30 @@ class App < Hanami::API
       json(result)
     else
       halt(422)
+    end
+  end
+
+  get '/screenshot' do
+    url = params.delete(:url)
+    expire = params.delete(:expire)
+
+    if url
+      headers["Content-Disposition"] = "inline"
+      headers["Content-Transfer-Encoding"] = "binary"
+      headers["Content-Type"] = "image/png"
+
+      file = ScreenshotService.call(url)
+
+      file_contents = file.read
+      file.unlink
+
+      if expire == "true"
+        headers['Age'] = '3600'
+      else
+        headers['Cache-Control'] = 'public, max-age=3600'
+      end
+
+      body file_contents
     end
   end
 end

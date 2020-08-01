@@ -14,3 +14,6 @@ gem "open_graph_reader", "~> 0.7.0"
 gem 'nokogiri'
 gem 'rubocop'
 gem 'rubocop-airbnb'
+gem 'activesupport'
+gem 'chromedriver-helper'
+gem 'watir'
