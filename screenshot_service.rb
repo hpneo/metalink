@@ -23,6 +23,7 @@ class ScreenshotService
 
     options.add_argument '--headless'
     options.add_argument '--window-size=1080x720'
+    options.add_argument '--hide-scrollbars'
 
     if chrome_bin = ENV['GOOGLE_CHROME_SHIM'] # rubocop:todo Lint/AssignmentInCondition
       options.add_argument '--no-sandbox'
