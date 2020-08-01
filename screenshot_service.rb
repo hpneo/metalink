@@ -24,7 +24,7 @@ class ScreenshotService
     options.add_argument '--headless'
     options.add_argument '--window-size=1080x720'
     options.add_argument '--hide-scrollbars'
-    options.add_argument "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+    options.add_argument '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"'
 
     if chrome_bin = ENV['GOOGLE_CHROME_SHIM'] # rubocop:todo Lint/AssignmentInCondition
       options.add_argument '--no-sandbox'
