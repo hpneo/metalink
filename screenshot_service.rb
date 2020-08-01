@@ -1,6 +1,7 @@
-require 'chromedriver-helper'
-require 'active_support/inflector'
-require 'watir'
+require "agents"
+require "chromedriver-helper"
+require "active_support/inflector"
+require "watir"
 
 class ScreenshotService
   def self.call(url)
@@ -24,6 +25,7 @@ class ScreenshotService
     options.add_argument '--headless'
     options.add_argument '--window-size=1080x720'
     options.add_argument '--hide-scrollbars'
+    options.add_argument "--user-agent=#{Agents.random_user_agent(:desktop)}"
 
     if chrome_bin = ENV['GOOGLE_CHROME_SHIM'] # rubocop:todo Lint/AssignmentInCondition
       options.add_argument '--no-sandbox'
