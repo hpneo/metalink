@@ -1,6 +1,9 @@
 require "active_support/inflector"
+require "webdrivers"
 require "webdrivers/chromedriver"
 require "watir"
+
+Selenium::WebDriver::Chrome.path = ENV['GOOGLE_CHROME_SHIM'] if ENV['GOOGLE_CHROME_SHIM'].present?
 
 class ScreenshotService
   def self.call(url)
