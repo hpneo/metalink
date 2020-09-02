@@ -10,13 +10,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     agents (0.1.4)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     ast (2.4.1)
     childprocess (3.0.0)
-    chromedriver-helper (2.1.1)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     concurrent-ruby (1.1.7)
     dalli (2.7.10)
     domain_name (0.5.20190701)
@@ -48,7 +43,6 @@ GEM
       ffi-compiler (>= 1.0, < 2.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
-    io-like (0.3.1)
     jaro_winkler (1.5.4)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
@@ -113,6 +107,10 @@ GEM
     watir (6.17.0)
       regexp_parser (~> 1.2)
       selenium-webdriver (~> 3.6)
+    webdrivers (4.4.1)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -121,7 +119,6 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   agents
-  chromedriver-helper
   dalli
   faraday_middleware
   hanami-api
@@ -135,6 +132,7 @@ DEPENDENCIES
   rubocop
   rubocop-airbnb
   watir
+  webdrivers
 
 RUBY VERSION
    ruby 2.7.0p0
