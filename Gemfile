@@ -15,5 +15,5 @@ gem 'nokogiri'
 gem 'rubocop'
 gem 'rubocop-airbnb'
 gem 'activesupport'
-gem 'webdrivers'
+gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
 gem 'watir'
