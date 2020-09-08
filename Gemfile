@@ -17,3 +17,4 @@ gem 'rubocop-airbnb'
 gem 'activesupport'
 gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
 gem 'watir'
+gem 'sentry-raven'

@@ -97,6 +97,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sentry-raven (3.0.4)
+      faraday (>= 1.0)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
@@ -131,6 +133,7 @@ DEPENDENCIES
   rack-cors
   rubocop
   rubocop-airbnb
+  sentry-raven
   watir
   webdrivers
 

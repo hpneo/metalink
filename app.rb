@@ -6,11 +6,17 @@ require 'rack/deflater'
 require 'rack-cache'
 require 'bundler/setup'
 require 'hanami/api'
+require 'raven'
 
 require_relative './scraper_service'
 require_relative './screenshot_service'
 
+Raven.configure do |config|
+  config.dsn = ENV['SENTRY_DSN']
+end
+
 class App < Hanami::API
+  use Raven::Rack
   use Rack::Cors do
     allow do
       origins '*'
