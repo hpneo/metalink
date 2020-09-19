@@ -86,6 +86,8 @@ class App < Hanami::API
       end
 
       body file_contents
+    else
+      halt(422)
     end
   end
 end
