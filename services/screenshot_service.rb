@@ -28,7 +28,7 @@ class ScreenshotService
     options.add_argument '--headless'
     options.add_argument '--window-size=1080x720'
     options.add_argument '--hide-scrollbars'
-    options.add_argument '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
+    options.add_argument '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36'
 
     if chrome_bin = ENV['GOOGLE_CHROME_SHIM']
       options.add_argument '--no-sandbox'
