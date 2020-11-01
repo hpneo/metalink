@@ -7,7 +7,7 @@ Selenium::WebDriver::Chrome.path = ENV['GOOGLE_CHROME_SHIM'] if ENV['GOOGLE_CHRO
 
 class ScreenshotService
   def self.call(url)
-    browser = new_browser
+    browser = new_browser(url)
     browser.goto(url)
 
     file = Tempfile.new("screenshot-#{ActiveSupport::Inflector.parameterize(url)}-#{Time.now.to_i}.png")
@@ -21,8 +21,8 @@ class ScreenshotService
     file
   end
 
-  def self.new_browser
-    Webdrivers.install_dir = File.expand_path("~/.webdrivers/#{property.url.parameterize}")
+  def self.new_browser(url)
+    Webdrivers.install_dir = File.expand_path("~/.webdrivers/#{url.parameterize}")
     options = Selenium::WebDriver::Chrome::Options.new
 
     options.add_argument '--headless'
