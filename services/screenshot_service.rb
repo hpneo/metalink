@@ -30,7 +30,7 @@ class ScreenshotService
     options.add_argument '--hide-scrollbars'
     options.add_argument '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
 
-    if chrome_bin = ENV['GOOGLE_CHROME_SHIM'] # rubocop:todo Lint/AssignmentInCondition
+    if chrome_bin = ENV['GOOGLE_CHROME_SHIM']
       options.add_argument '--no-sandbox'
       options.add_argument '--disable-dev-shm-usage'
       options.binary = chrome_bin

@@ -8,8 +8,8 @@ require 'bundler/setup'
 require 'hanami/api'
 require 'raven'
 
-require_relative './scraper_service'
-require_relative './screenshot_service'
+require_relative './services/scraper_service'
+require_relative './services/screenshot_service'
 
 Raven.configure do |config|
   config.dsn = ENV['SENTRY_DSN']

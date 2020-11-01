@@ -1,6 +1,8 @@
 require "http"
 require "json"
 
+require_relative "./generic_scraper_service"
+
 class OEmbedScraperService
   PROVIDERS_URL = "https://oembed.com/providers.json".freeze
 
@@ -12,9 +14,8 @@ class OEmbedScraperService
     providers.find do |provider|
       provider["endpoints"].find do |endpoint|
         endpoint["schemes"]&.find do |provider_scheme|
-          # rubocop:todo Lint/AssignmentInCondition
           if provider_url = provider_scheme_to_regexp(provider_scheme)
-            # rubocop:enable Lint/AssignmentInCondition
+
             provider_url =~ url
           end
         end
@@ -25,10 +26,8 @@ class OEmbedScraperService
   end
 
   def self.call(url, params = {})
-    if provider = find_provider(url) # rubocop:todo Lint/AssignmentInCondition
-      # rubocop:todo Lint/ShadowingOuterLocalVariable
-      endpoint = provider["endpoints"].find do |endpoint|
-        # rubocop:enable Lint/ShadowingOuterLocalVariable
+    if provider = find_provider(url)
+      provider_endpoint = provider["endpoints"].find do |endpoint|
         return nil if endpoint.nil?
 
         endpoint["schemes"]&.find do |provider_scheme|
@@ -36,10 +35,19 @@ class OEmbedScraperService
         end
       end
 
-      if endpoint
-        JSON.parse(HTTP.follow.get(endpoint["url"], params: params.merge({ url: url })).body)
+      if provider_endpoint
+        JSON.parse(HTTP.follow.get(provider_endpoint["url"], params: params.merge({ url: url })).body)
       end
+    elsif endpoint = endpoint_from_link(url)
+      JSON.parse(HTTP.use(:auto_inflate).follow.get(endpoint).body.to_s)
     end
+  end
+
+  def self.endpoint_from_link(url)
+    document = GenericScraperService.call(url)
+    document.css('link[type="application/json+oembed"]').first.attr('href')
+  rescue
+    nil
   end
 
   def self.provider_scheme_to_regexp(provider_scheme)
