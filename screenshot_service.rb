@@ -22,6 +22,7 @@ class ScreenshotService
   end
 
   def self.new_browser
+    Webdrivers.install_dir = File.expand_path("~/.webdrivers/#{property.url.parameterize}")
     options = Selenium::WebDriver::Chrome::Options.new
 
     options.add_argument '--headless'
@@ -31,6 +32,7 @@ class ScreenshotService
 
     if chrome_bin = ENV['GOOGLE_CHROME_SHIM'] # rubocop:todo Lint/AssignmentInCondition
       options.add_argument '--no-sandbox'
+      options.add_argument '--disable-dev-shm-usage'
       options.binary = chrome_bin
     end
 
