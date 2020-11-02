@@ -6,7 +6,17 @@ class MetalinkController < ApplicationController
     url = unsafe_params.delete(:url)
     expire = unsafe_params.delete(:expire)
 
-    result = ScraperService.call(url, unsafe_params)
+    cached_result = AnalyzedUrl.find_by(url: url)
+
+    if cached_result.nil? || expire == "true"
+      result = ScraperService.call(url, unsafe_params)
+
+      cached_result ||= AnalyzedUrl.find_or_initialize_by(url: url)
+      cached_result.content = result
+      cached_result.save
+    else
+      result = cached_result.content
+    end
 
     render json: result
   end
