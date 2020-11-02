@@ -5,7 +5,7 @@ class MetalinkController < ApplicationController
     url = params.delete(:url)
     expire = params.delete(:expire)
 
-    result = ScraperService.call(url, params)
+    result = ScraperService.call(url, params.to_h)
 
     render json: result
   end
