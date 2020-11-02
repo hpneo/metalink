@@ -2,17 +2,19 @@ class MetalinkController < ApplicationController
   before_action :check_for_url
 
   def analyze
-    url = params.delete(:url)
-    expire = params.delete(:expire)
+    unsafe_params = params.to_unsafe_h
+    url = unsafe_params.delete(:url)
+    expire = unsafe_params.delete(:expire)
 
-    result = ScraperService.call(url, params.to_h)
+    result = ScraperService.call(url, unsafe_params)
 
     render json: result
   end
 
   def screenshot
-    url = params.delete(:url)
-    expire = params.delete(:expire)
+    unsafe_params = params.to_unsafe_h
+    url = unsafe_params.delete(:url)
+    expire = unsafe_params.delete(:expire)
 
     file = ScreenshotService.call(url)
     contents = file.read
