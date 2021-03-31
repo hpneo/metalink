@@ -1,8 +1,6 @@
 require "http"
 require "nokogiri"
 
-require_relative "./generic_scraper_service"
-
 class FaviconGrabberService
   def self.call(url, original_url)
     favicon_url = get(url)

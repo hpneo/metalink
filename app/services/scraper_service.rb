@@ -1,3 +1,5 @@
+require_relative './generic_scraper_service'
+require_relative './meta_scraper_service'
 require_relative "./favicon_grabber_service"
 require_relative "./o_embed_scraper_service"
 require_relative "./open_graph_scraper_service"
@@ -11,6 +13,8 @@ class ScraperService
       url = URI.parse(URI.escape(url))
     end
 
+    document = GenericScraperService.call(url)
+    meta = MetaScraperService.call(document)
     json_ld = JsonLdScraperService.call(url) || {}
     oembed = OEmbedScraperService.call(url.to_s, params) || {}
     open_graph = OpenGraphScraperService.call(url)&.og
@@ -24,7 +28,7 @@ class ScraperService
       html: nil,
       type: nil,
       raw: nil,
-    }
+    }.merge(meta)
 
     response[:url] = json_ld.fetch("mainEntityOfPage", nil) || oembed.fetch("provider_url", nil) || open_graph&.url || url
     response[:favicon] = FaviconGrabberService.call(response[:url], url)
@@ -34,6 +38,7 @@ class ScraperService
     response[:image] = json_ld.fetch("image", []).first || oembed.fetch("thumbnail_url", nil) || open_graph&.children&.fetch("image", [])&.first&.content
     response[:html] = oembed.fetch("html", nil) || custom_embed(response[:url])
     response[:type] = json_ld.fetch("@type", nil) || oembed.fetch("type", nil) || open_graph&.type
+    response[:lang] = document.css("html").first&.attributes["lang"]&.value
     response[:raw] = {
       json_ld: json_ld,
       oembed: oembed,
