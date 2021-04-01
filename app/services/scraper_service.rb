@@ -45,6 +45,7 @@ class ScraperService
     @data[:site_name] = fetch_site_name
     @data[:description] = fetch_description
     @data[:image] = fetch_image
+    @data[:video] = fetch_video
     @data[:html] = fetch_html
     @data[:type] = fetch_type
     @data[:lang] = fetch_lang
@@ -64,64 +65,56 @@ class ScraperService
   end
 
   def fetch_url
-    return @json_ld.fetch("mainEntityOfPage", nil) if @json_ld
-    return @oembed.fetch("url", nil) if @oembed
-    return @open_graph.url if @open_graph
-
-    @url
+    url = find_in_json_ld("mainEntityOfPage") if @json_ld && find_in_json_ld("mainEntityOfPage").is_a?(String)
+    url ||= @oembed.fetch("url", nil) if @oembed
+    url ||= @open_graph.url if @open_graph
+    url ||= @url
   end
 
   def fetch_favicon
-    FaviconGrabberService.call(@data[:url], @url, @document)
+    favicon = FaviconGrabberService.call(@data[:url], @url, @document)
   end
 
   def fetch_title
-    return @json_ld.fetch("headline", nil) if @json_ld
-    return @oembed.fetch("title", nil) if @oembed
-    return @open_graph.title if @open_graph
-
-    @document.css("title").first&.content
+    title = find_in_json_ld("headline") if @json_ld
+    title ||= @oembed.fetch("title", nil) if @oembed
+    title ||= @open_graph.title if @open_graph
+    title ||= @document.css("title").first&.content
   end
 
   def fetch_site_name
-    return @json_ld.dig("publisher", "name") if @json_ld
-    return @oembed.fetch("provider_name", nil) if @oembed
-    return @open_graph.site_name if @open_graph
-
-    nil
+    site_name = find_in_json_ld("publisher", "name") if @json_ld
+    site_name ||= @oembed.fetch("provider_name", nil) if @oembed
+    site_name ||= @open_graph.site_name if @open_graph
   end
 
   def fetch_description
-    return @json_ld.fetch("description", nil) if @json_ld
-    return @open_graph.description if @open_graph
-
-    nil
+    description = find_in_json_ld("description") if @json_ld
+    description ||= @open_graph.description if @open_graph
   end
 
   def fetch_image
-    return @json_ld.fetch("image", []).first if @json_ld
-    return @oembed.fetch("thumbnail_url", nil) if @oembed
-    return @open_graph.children&.fetch("image", [])&.first&.content if @open_graph
+    image = find_in_json_ld("image")&.first if @json_ld
+    image ||= @oembed.fetch("thumbnail_url", nil) if @oembed
+    image ||= @open_graph.image&.content if @open_graph
+  end
 
-    nil
+  def fetch_video
+    video = @open_graph.video&.content if @open_graph
   end
 
   def fetch_html
-    return @oembed.fetch("html", nil) if @oembed
-
-    nil
+    html = @oembed.fetch("html", nil) if @oembed
   end
 
   def fetch_type
-    return @json_ld.fetch("@type", nil) if @json_ld
-    return @oembed.fetch("type", nil) if @oembed
-    return @open_graph.type if @open_graph
-
-    nil
+    type = find_in_json_ld("@type") if @json_ld
+    type ||= @oembed.fetch("type", nil) if @oembed
+    type ||= @open_graph.type if @open_graph
   end
 
   def fetch_lang
-    @document.css("html").first&.attributes["lang"]&.value
+    lang = @document.css("html").first&.attributes["lang"]&.value
   end
 
   def gist_github
@@ -156,5 +149,16 @@ class ScraperService
     @data[:html] ||= "<iframe src=\"#{@url}\" frameborder=\"0\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>"
 
     @data
+  end
+
+  private
+
+  def find_in_json_ld(*keys)
+    if @json_ld.is_a?(Array)
+      found_item = @json_ld.find { |item| item.dig(*keys) }
+      found_item.dig(*keys) if found_item
+    elsif @json_ld.is_a?(Hash)
+      @json_ld.dig(*keys)
+    end
   end
 end
