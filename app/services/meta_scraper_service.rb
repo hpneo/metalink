@@ -3,6 +3,7 @@ class MetaScraperService
     data = {}
 
     data[:meta] = meta_tags(document)
+    data[:manifest] = manifest(document)
     data[:search] = search(document)
 
     data
@@ -16,6 +17,12 @@ class MetaScraperService
     .inject({}) do |result, node|
       result[node.attributes["name"].value] = node.attributes["content"]&.value
       result
+    end
+  end
+
+  def self.manifest(document)
+    if manifest_link = document.css("link[rel='manifest']").first
+      manifest_link.attributes["href"]&.value.present?
     end
   end
 
