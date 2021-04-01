@@ -2,8 +2,8 @@ require "http"
 require "nokogiri"
 
 class FaviconGrabberService
-  def self.call(url, original_url)
-    favicon_url = get(url)
+  def self.call(url, original_url, document)
+    favicon_url = get(url, document)
 
     favicon_url = URI.parse(favicon_url)
     favicon_url.hostname ||= original_url.hostname
@@ -14,8 +14,7 @@ class FaviconGrabberService
     fallback(url)
   end
 
-  def self.get(url)
-    document = GenericScraperService.call(url)
+  def self.get(url, document = GenericScraperService.call(url))
     favicon = (
       document.css('link[rel="apple-touch-icon"]').first ||
       document.css('link[rel="icon"]').first ||

@@ -25,7 +25,7 @@ class OEmbedScraperService
     end
   end
 
-  def self.call(url, params = {})
+  def self.call(url, params = {}, document = nil)
     if provider = find_provider(url)
       provider_endpoint = provider["endpoints"].find do |endpoint|
         return nil if endpoint.nil?
@@ -38,13 +38,12 @@ class OEmbedScraperService
       if provider_endpoint
         JSON.parse(HTTP.follow.get(provider_endpoint["url"], params: params.merge({ url: url })).body)
       end
-    elsif endpoint = endpoint_from_link(url)
+    elsif endpoint = endpoint_from_link(url, document)
       JSON.parse(HTTP.use(:auto_inflate).follow.get(endpoint).body.to_s)
     end
   end
 
-  def self.endpoint_from_link(url)
-    document = GenericScraperService.call(url)
+  def self.endpoint_from_link(url, document = GenericScraperService.call(url))
     document.css('link[type="application/json+oembed"]').first.attr('href')
   rescue
     nil
