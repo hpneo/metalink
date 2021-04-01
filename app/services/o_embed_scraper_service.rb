@@ -21,7 +21,7 @@ class OEmbedScraperService
         end
       end
     rescue => exception
-      puts exception
+      puts "Exception in OEmbed: #{exception}"
     end
   end
 

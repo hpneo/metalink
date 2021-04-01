@@ -35,7 +35,7 @@ class ScraperService
     @oembed = OEmbedScraperService.call(@url.to_s, @params, @document)
     @open_graph = OpenGraphScraperService.call(@url)&.og
 
-    meta = MetaScraperService.call(@document)
+    meta = MetaScraperService.call(@url, @document)
 
     @data = {}
 
@@ -68,7 +68,7 @@ class ScraperService
     url = find_in_json_ld("mainEntityOfPage") if @json_ld && find_in_json_ld("mainEntityOfPage").is_a?(String)
     url ||= @oembed.fetch("url", nil) if @oembed
     url ||= @open_graph.url if @open_graph
-    url ||= @url
+    url ||= @url.to_s
   end
 
   def fetch_favicon
@@ -131,17 +131,18 @@ class ScraperService
     id = @url.to_s.split("/").pop
     twitter_data = TwitterService.call(id)
 
-    video = twitter_data["extended_entities"]["media"].find { |media| media["type"] == "video" }
-    video_url = video["video_info"]["variants"]
-      .select { |variant| variant["bitrate"] && variant["content_type"] == "video/mp4" }
-      .sort_by { |variant| variant["bitrate"] }
-      .last["url"]
+    if video = twitter_data.dig("extended_entities", "media")&.find { |media| media["type"] == "video" }
+      video_url = video["video_info"]["variants"]
+        .select { |variant| variant["bitrate"] && variant["content_type"] == "video/mp4" }
+        .sort_by { |variant| variant["bitrate"] }
+        .last["url"]
 
-    @data[:video] = video_url
+      @data[:video] = video_url if video_url
+    end
 
     @data
-  rescue Exception => error
-    puts error
+  rescue => exception
+    puts "Exception in Twitter: #{exception}"
     @data
   end
 
