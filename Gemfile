@@ -47,6 +47,8 @@ gem 'rubocop'
 gem 'rubocop-airbnb', '~> 3.0.0'
 gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
 gem 'watir'
-gem 'sentry-raven'
+gem 'sentry-ruby'
+gem "sentry-rails", "~> 4.3"
+gem "sentry-sidekiq", "~> 4.3"
 
 gem "dotenv-rails", "~> 2.7"
