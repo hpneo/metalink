@@ -207,8 +207,6 @@ GEM
     sentry-ruby-core (4.3.1)
       concurrent-ruby
       faraday
-    sentry-sidekiq (4.3.0)
-      sentry-ruby-core (~> 4.3.0)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -261,7 +259,6 @@ DEPENDENCIES
   rubocop-airbnb (~> 3.0.0)
   sentry-rails (~> 4.3)
   sentry-ruby
-  sentry-sidekiq (~> 4.3)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
