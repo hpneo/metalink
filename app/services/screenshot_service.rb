@@ -14,9 +14,9 @@ class ScreenshotService
     browser = Ferrum::Browser.new(options)
     browser.go_to(url)
 
-    file = Tempfile.new("screenshot-#{ActiveSupport::Inflector.parameterize(url)}-#{Time.now.to_i}.png")
+    file = Tempfile.new("screenshot-#{ActiveSupport::Inflector.parameterize(url)}-#{Time.now.to_i}.jpeg")
     file.binmode
-    file.write(browser.screenshot(encoding: :binary))
+    file.write(browser.screenshot(format: "jpeg", quality: 100, encoding: :binary))
 
     file.rewind
 
