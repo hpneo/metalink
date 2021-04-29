@@ -5,7 +5,7 @@ require "watir"
 
 Selenium::WebDriver::Chrome.path = ENV['GOOGLE_CHROME_SHIM'] if ENV['GOOGLE_CHROME_SHIM']
 
-class ScreenshotService
+class ScreenshotServiceLegacy
   def self.call(url)
     browser = new_browser(url)
     browser.goto(url)
