@@ -129,7 +129,7 @@ GEM
     msgpack (1.3.3)
     multipart-post (2.1.1)
     nio4r (2.5.7)
-    nokogiri (1.11.3)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     open_graph_reader (0.7.1)
