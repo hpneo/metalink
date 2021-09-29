@@ -1,6 +1,6 @@
 class TwitterService
   HEADERS = {
-    Authorization: "Bearer #{ENV['TWITTER_BEARER_TOKEN']}"
+    Authorization: "Bearer #{ENV['TWITTER_BEARER_TOKEN']}",
   }.freeze
 
   def self.call(id)

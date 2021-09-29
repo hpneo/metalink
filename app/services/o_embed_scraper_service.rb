@@ -36,7 +36,7 @@ class OEmbedScraperService
       end
 
       if provider_endpoint
-        JSON.parse(HTTP.follow.get(provider_endpoint["url"], params: params.merge({ url: url })).body)
+        JSON.parse(HTTP.follow.get(provider_endpoint["url"], params: params.merge({ url: url }, provider_params(provider))).body)
       end
     elsif endpoint = endpoint_from_link(url, document)
       JSON.parse(HTTP.use(:auto_inflate).follow.get(endpoint).body.to_s)
@@ -58,6 +58,12 @@ class OEmbedScraperService
       path = Regexp.escape(path).gsub("\\*", "(.*?)")
 
       Regexp.new("^#{Regexp.escape(scheme)}://#{domain}#{path}")
+    end
+  end
+
+  def self.provider_params(provider)
+    if provider["provider_name"] == "Facebook"
+      { access_token: ENV['FACEBOOK_APP_TOKEN'] ? ENV['FACEBOOK_APP_TOKEN'] : "#{ENV['FACEBOOK_APP_ID']}|#{ENV['FACEBOOK_APP_SECRET']}" }
     end
   end
 end
