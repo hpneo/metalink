@@ -64,6 +64,8 @@ class OEmbedScraperService
   def self.provider_params(provider)
     if provider["provider_name"] == "Facebook"
       { access_token: ENV['FACEBOOK_APP_TOKEN'] ? ENV['FACEBOOK_APP_TOKEN'] : "#{ENV['FACEBOOK_APP_ID']}|#{ENV['FACEBOOK_APP_SECRET']}" }
+    else
+      {}
     end
   end
 end
