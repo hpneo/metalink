@@ -168,7 +168,7 @@ class ScraperService
 
   def find_in_json_ld(*keys)
     if @json_ld.is_a?(Array)
-      found_item = @json_ld.find { |item| item.dig(*keys) }
+      found_item = @json_ld.flatten.find { |item| item.dig(*keys) }
       found_item.dig(*keys) if found_item
     elsif @json_ld.is_a?(Hash)
       @json_ld.dig(*keys)
