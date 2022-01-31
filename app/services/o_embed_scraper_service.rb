@@ -36,7 +36,7 @@ class OEmbedScraperService
       end
 
       if provider_endpoint
-        JSON.parse(HTTP.follow.get(provider_endpoint["url"], params: params.merge({ url: url }, provider_params(provider))).body)
+        JSON.parse(HTTP.follow.get(provider_endpoint["url"].gsub("{format}", "json"), params: params.merge({ url: url }, provider_params(provider))).body)
       end
     elsif endpoint = endpoint_from_link(url, document)
       JSON.parse(HTTP.use(:auto_inflate).follow.get(endpoint).body.to_s)
