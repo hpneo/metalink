@@ -20,12 +20,16 @@ class MetaScraperService
   private
 
   def self.canonical(document)
+    return nil if document.nil?
+
     if canonical_link = document.css("link[rel='canonical']").first
       canonical_link.attributes["href"]&.value
     end
   end
 
   def self.meta_tags(document)
+    return nil if document.nil?
+
     document.css("meta")
     .select{ |node| node.attributes["name"] && !node.attributes["name"].value.match?("verification") }
     .inject({}) do |result, node|
@@ -35,6 +39,8 @@ class MetaScraperService
   end
 
   def self.manifest(url, document)
+    return nil if document.nil?
+
     if manifest_link = document.css("link[rel='manifest']").first
       if manifest_url_or_path = manifest_link.attributes["href"]&.value
         if manifest_url_or_path.starts_with?("/")
@@ -50,10 +56,14 @@ class MetaScraperService
   end
 
   def self.search(document)
+    return nil if document.nil?
+
     (document.css("link[type='application/opensearchdescription+xml']") || document.css("link[rel='search']")).any?
   end
 
   def self.feed(url, document)
+    return nil if document.nil?
+
     if feed_link = document.css("link[type='application/atom+xml']").first
       if feed_url_or_path = feed_link.attributes["href"]&.value
         if feed_url_or_path.starts_with?("/")
