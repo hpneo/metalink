@@ -44,7 +44,7 @@ gem 'faraday_middleware'
 gem "open_graph_reader", "~> 0.7.0"
 gem 'nokogiri'
 gem 'rubocop'
-gem 'rubocop-airbnb', '~> 3.0.0'
+gem 'rubocop-airbnb', '~> 7.0.0'
 gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
 gem 'watir'
 gem 'sentry-ruby'
