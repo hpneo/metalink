@@ -33,5 +33,11 @@ class FaviconGrabberService
     )
 
     response["icons"]&.first&.fetch("src")
+  rescue
+    uri = URI(url)
+    uri.path = "/favicon.ico"
+    uri.query = nil
+
+    uri.to_s
   end
 end
