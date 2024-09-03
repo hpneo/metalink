@@ -53,3 +53,4 @@ gem "sentry-rails", "~> 4.3"
 gem "dotenv-rails", "~> 2.7"
 
 gem "ferrum", "~> 0.11"
+gem "ffi", "< 1.17.0"
